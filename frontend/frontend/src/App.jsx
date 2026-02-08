@@ -1,33 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
+import HomePage from './pages/HomePage'
+import UserDashboard from './pages/UserDashboard'
+import ShoppingCart from './pages/ShoppingCart'
+import LoginPage from './pages/LoginPage'
+import Authentication from './Authentication'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [page, setPage] = useState('home')
+
+  useEffect(() => {
+    console.log(page)
+  }, [page])
+
+  const renderPage = () => {
+    switch (page) {
+      case 'home':
+        return <HomePage></HomePage>
+        break;
+      case 'courses':
+        return <UserDashboard></UserDashboard>
+        break;
+      case 'cart':
+        return <ShoppingCart></ShoppingCart>
+        break;
+      default:
+        break;
+    }
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Authentication>
+        <LoginPage></LoginPage>
+      </Authentication>
+      
+      {/*<h1>Training Course Platform</h1>
+      <button onClick={() => {setPage('home')}}>Home</button>{' '}
+      <button onClick={() => {setPage('courses')}}>My Courses</button>{' '}
+      <button onClick={() => {setPage('cart')}}>Shopping Cart</button><br/>
+      <div>{renderPage()}</div>*/}
     </>
   )
 }
