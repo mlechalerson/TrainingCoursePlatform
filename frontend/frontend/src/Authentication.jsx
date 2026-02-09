@@ -34,14 +34,15 @@ function Authentication({children}) {
         };
       }
 
-      const { token, id, isAdmin: admin } = data;
+      const { token, id, admin } = data;
 
-      if (token && isAdmin && id) {
+      if (token && id) {
         localStorage.setItem('token', token);
-        localStorage.setItem('admin', isAdmin);
+        localStorage.setItem('admin', admin);
         localStorage.setItem('userId', id);
         
-        setUser({ id });
+        setUser({id});
+        console.log(user);
         setAdmin(isAdmin);
         
         return { success: true, isAdmin: admin };
@@ -60,7 +61,15 @@ function Authentication({children}) {
     }
   };
 
-  return <AuthContext.Provider value={{ user, isAdmin, login, loading }}>{children}</AuthContext.Provider>;
+  const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('admin');
+    localStorage.removeItem('userId');
+    setUser(null);
+    setAdmin(null);
+  };
+
+  return <AuthContext.Provider value={{ user, isAdmin, login, logout, loading }}>{children}</AuthContext.Provider>;
 }
 
 export default Authentication

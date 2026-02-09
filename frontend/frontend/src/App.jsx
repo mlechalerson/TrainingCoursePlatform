@@ -5,6 +5,7 @@ import UserDashboard from './pages/UserDashboard'
 import ShoppingCart from './pages/ShoppingCart'
 import LoginPage from './pages/LoginPage'
 import Authentication from './Authentication'
+import TopBar from './components/TopBar'
 
 function App() {
   const [page, setPage] = useState('home')
@@ -14,25 +15,30 @@ function App() {
   }, [page])
 
   const renderPage = () => {
-    switch (page) {
-      case 'home':
-        return <HomePage></HomePage>
-        break;
-      case 'courses':
-        return <UserDashboard></UserDashboard>
-        break;
-      case 'cart':
-        return <ShoppingCart></ShoppingCart>
-        break;
-      default:
-        break;
+    if(localStorage.getItem('token')) {
+      switch (page) {
+        case 'home':
+          return <HomePage></HomePage>
+          break;
+        case 'courses':
+          return <UserDashboard></UserDashboard>
+          break;
+        case 'cart':
+          return <ShoppingCart></ShoppingCart>
+          break;
+        default:
+          break;
+      }
+    } else {
+      return <LoginPage></LoginPage>
     }
   }
 
   return (
     <>
       <Authentication>
-        <LoginPage></LoginPage>
+        {localStorage.getItem('token') && <TopBar></TopBar>}    
+        {renderPage()}
       </Authentication>
       
       {/*<h1>Training Course Platform</h1>

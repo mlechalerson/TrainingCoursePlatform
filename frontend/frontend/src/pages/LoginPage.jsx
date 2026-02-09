@@ -4,7 +4,7 @@ import { useAuth } from '../Authentication'
 function LoginPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const { login, loading } = useAuth();
+    const {login} = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -12,7 +12,7 @@ function LoginPage() {
         const result = await login(username, password);
 
         if(result.success) {
-            return <span>Zalogowano</span>
+          return <span>Zalogowano</span>
         }
     }
 
