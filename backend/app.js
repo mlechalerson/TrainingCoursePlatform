@@ -20,6 +20,8 @@ app.get('/', async (req, res) => {
 
 const loginRoutes = require('./routes/login.js');
 app.use('/login',loginRoutes);
+const homepageRoutes = require('./routes/homepage.js');
+app.use('/home',homepageRoutes);
 
 const port = process.env.PORT || 3000
 app.listen(port, () => {
