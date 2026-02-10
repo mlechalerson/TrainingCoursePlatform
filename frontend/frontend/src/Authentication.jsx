@@ -4,8 +4,8 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 function Authentication({children}) {
-    const [user, setUser] = useState(null);
-    const [isAdmin, setAdmin] = useState(null);
+    const [user, setUser] = useState(localStorage.getItem('userId'));
+    const [isAdmin, setAdmin] = useState(localStorage.getItem('admin'));
     const [loading, setLoading] = useState(true);
 
     const login = async (username, password) => {
